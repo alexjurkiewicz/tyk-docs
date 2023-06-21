@@ -44,7 +44,10 @@ Considerations:
 
 ### Configuring the Synchroniser for Tyk Self Managed
 
+{{< note success >}}**Note**
+
 Synchroniser feature is disabled by default. To enable it, please configure both the worker Gateways and MDCB control plane accordingly.
+{{< /note >}}
 
 **Worker Gateway configuration**
 
@@ -100,3 +103,4 @@ Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centr
 
 ### Configuring the Synchroniser for Tyk Cloud
 
+Please contact us if you want to enable Synchroniser for your Tyk Cloud deployment.
