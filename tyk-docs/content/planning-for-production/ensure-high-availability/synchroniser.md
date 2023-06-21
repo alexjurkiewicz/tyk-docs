@@ -107,7 +107,8 @@ Please contact us if you want to enable Synchroniser for your Tyk Cloud deployme
 
 ### Troubleshooting
 
-You could check the MDCB log message to know about when synchronisation started and finished:
+Q: How do I know when synchronisation happened?
+A: You could check the MDCB log message to know about when synchronisation started and finished:
 
   Starting oauth clients sync worker for orgID...
   Starting keys sync worker for orgID...
@@ -116,3 +117,6 @@ You could check the MDCB log message to know about when synchronisation started 
   Sync APIKeys worker for orgID:...
   Sync Certs worker for orgID:...
   Sync oauth worker for orgID:...
+
+Q: Can I trigger a re-synchronisation?
+A: Synchronisation will be triggered once the TTL of worker Gateway expired. Default is 10 minutes. TTL value can be set via [sync_worker_config.group_key_ttl](<< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configgroup_key_ttl" >>)
