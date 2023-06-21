@@ -28,10 +28,9 @@ If Synchroniser is disabled, the resources were pulled by the worker Gateways on
 Every time that a key is updated or removed the management layer emits a signal to all the cluster gateways to update the key accordingly.
 
 Considerations:
-
 - In a situation where MDCB or the management redis is down or having issues then the worker gateway would be affected as well, which is not desired.
 
-[image]
+{{< img src="/img/synchroniser-after.gif" alt="Without Synchroniser" width="1000" >}}
 
 **With Synchroniser**
 
@@ -41,7 +40,7 @@ Considerations:
 - Local Redis sizing: if you have a lot of keys / resources to be synchronised, please review sizing of the local redis
 - Data residency: Groups will be ignored when synchronizing- all keys (and oauth clients etc) will be propagated to all Redis instances, this might matter for customers who have a single control plane but multiple clusters of worker Gateways connected. All Redises will get All the keys. This has implications if you have data residency requirements.
 
-[image]
+{{< img src="/img/synchroniser-after.gif" alt="With Synchroniser" width="1000" >}}
 
 ### Configuring the Synchroniser for Tyk Self Managed
 
