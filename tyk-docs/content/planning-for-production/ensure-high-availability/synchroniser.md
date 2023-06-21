@@ -1,8 +1,8 @@
 ---
 date: 2023-06-21T11:02:59Z
-title: Synchorniser feature with MDCB
+title: Synchroniser feature with MDCB
 tags: ["High Availability", "Synchroniser"]
-description: "Synchorniser feature with MDCB"
+description: "Synchroniser feature with MDCB"
 menu:
   main:
     parent: "Ensure High Availability"
