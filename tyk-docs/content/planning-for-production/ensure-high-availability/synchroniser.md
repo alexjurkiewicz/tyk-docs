@@ -123,4 +123,4 @@ A: You could check the MDCB log message to know about when synchronisation start
 
 **Q: Can I trigger a re-synchronisation?**
 
-A: Synchronisation will be triggered once the TTL of worker Gateway expired. Default is 3 minutes. TTL value can be set via [sync_worker_config.group_key_ttl]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configgroup_key_ttl" >}})
+A: Synchronisation will be triggered once the Time To Live (TTL) of a worker Gateway has expired. The default expiry duration is 3 minutes. The Time To Live (TTL) value can be set via [sync_worker_config.group_key_ttl]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configgroup_key_ttl" >}})
