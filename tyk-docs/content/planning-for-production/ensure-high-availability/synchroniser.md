@@ -77,7 +77,7 @@ All the authentication keys created in the management layer are replicated exact
 
 In an MDCB environment, the quotas and rates limits are stored locally per worker cluster, it means that they are not synchronised with others worker clusters or the management layer.
 
-Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centre/mdcb-configuration-options/#sync_worker_config) for reference
+Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centre/mdcb-configuration-options/#sync_worker_config) for reference.
 
 If API keys were used and hash key is disabled, please also set these additional configurations on following components:
 
