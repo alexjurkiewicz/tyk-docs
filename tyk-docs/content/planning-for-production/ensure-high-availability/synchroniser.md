@@ -79,7 +79,7 @@ In an MDCB environment, the quotas and rates limits are stored locally per worke
 
 Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centre/mdcb-configuration-options/#sync_worker_config) for reference.
 
-If API keys were used and hash key is disabled, please also set these additional configurations on following components:
+If API keys were used and hash key is disabled, please also set these additional configurations for the following components:
 
 - MDCB:
 
