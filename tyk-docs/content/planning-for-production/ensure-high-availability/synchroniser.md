@@ -19,7 +19,7 @@ This change improves resilience in case the MDCB link or controller Gateway is u
 
 Changes to keys, certificates and OAuth clients are still synchronised to the worker Gateways from the controller when there are changes and following any failure in the MDCB link.
 
-### How does worker Gateways get resources from MDCB control plane
+### How does worker Gateways get resources from MDCB control plane?
 
 **Without Synchroniser**
 
