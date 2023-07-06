@@ -37,7 +37,7 @@ This introduces a single point of failure. When the MDCB or controller Gateway f
 If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is enabled, API keys, certificates and OAuth clients are synchronised and stored in the local Redis server in advance, and since dashboard v4.1.0 a signal is emitted when when one of those resources is created, modified or deleted, it allows the worker DCs to respond accordingly, the transmitted information is: type of resource, action (create, update, delete), if hashed (in the case of keys), and resource Id so the changes are applied.
 
 Considerations: 
-- Local Redis sizing: if you have a lot of keys / resources to be synchronised, please review sizing of the local redis
+- Size of local Redis storage: If there are a lot of keys / resources to be synchronised this will increase the size of local Redis storage.
 - Data residency: Groups will be ignored when synchronizing- all keys (and oauth clients etc) will be propagated to all Redis instances, this might matter for customers who have a single control plane but multiple clusters of worker Gateways connected. All Redises will get All the keys. This has implications if you have data residency requirements.
 
 {{< img src="/img/mdcb/synchroniser-after.gif" alt="With Synchroniser" width="1000" >}}
