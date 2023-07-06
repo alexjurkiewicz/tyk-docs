@@ -23,7 +23,7 @@ Changes to keys, certificates and OAuth clients are still synchronised to the wo
 
 **Without Synchroniser**
 
-If Synchroniser is disabled, the resources were pulled by the worker Gateways on-demand and not in advance. It means that first it checks if the resource lives in the local redis and if it doesn’t exist then it tries to pull it from the management layer to store it locally.
+If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is disabled, the resources were pulled by the worker Gateways on-demand and not in advance. It means that first it checks if the resource lives in the local redis and if it doesn’t exist then it tries to pull it from the management layer to store it locally.
 
 Every time that a key is updated or removed the management layer emits a signal to all the cluster gateways to update the key accordingly.
 
