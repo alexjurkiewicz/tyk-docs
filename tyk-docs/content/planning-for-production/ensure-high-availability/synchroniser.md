@@ -28,7 +28,7 @@ If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#syn
 Every time that a key is updated or removed the management layer emits a signal to all the cluster gateways to update the key accordingly.
 
 Considerations:
-- In a situation where MDCB or the management redis is down or having issues then the worker gateway would be affected as well, which is not desired.
+This introduces a single point of failure. When the MDCB or controller Gateway fails then the worker Gateways are also affected.
 
 {{< img src="/img/mdcb/synchroniser-after.gif" alt="Without Synchroniser" width="1000" >}}
 
