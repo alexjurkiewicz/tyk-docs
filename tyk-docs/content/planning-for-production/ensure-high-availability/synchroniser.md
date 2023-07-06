@@ -103,7 +103,7 @@ Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centr
 
 ### Configuring the Synchroniser for Tyk Cloud
 
-Please contact us if you want to enable Synchroniser for your Tyk Cloud deployment.
+Please [contact us](https://support.tyk.io/hc/en-gb) if you want to enable Synchroniser for your Tyk Cloud deployment.
 
 ### Troubleshooting
 
