@@ -11,7 +11,7 @@ weight: 7
 
 ## Overview
 
-In order to process API requests successfully the worker Gateways need resources such as API keys, certificates, and OAuth clients.
+In order to process API requests the worker Gateways need resources such as API keys, certificates, and OAuth clients. To ensure high availability these resources need to be synchronised between worker Gateways.
 
 Prior to Tyk Gateway v4.1, the API keys, certificates and OAuth clients required by worker Gateways were synchronised from the controller Gateway on-demand. With Gateway v4.1 and MDCB v2.0.3 we introduced proactive synchronisation of these resources to the worker Gateways when they start up.
 
