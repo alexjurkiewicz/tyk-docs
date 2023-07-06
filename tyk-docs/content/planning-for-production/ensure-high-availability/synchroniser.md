@@ -49,7 +49,7 @@ Considerations:
 The synchroniser feature is disabled by default. To enable it, please configure both the worker Gateways and MDCB control plane accordingly.
 {{< /note >}}
 
-**Worker Gateway configuration**
+**1. Worker Gateway configuration**
 
 First, configure the worker Gateway to enable synchroniser:
 
@@ -57,7 +57,7 @@ First, configure the worker Gateway to enable synchroniser:
 
 Please see [Gateway configuration options](https://tyk.io/docs/tyk-oss-gateway/configuration/#slave_optionssynchroniser_enabled) for reference
 
-Also, if you are running a cluster of Gateways, you must have a GroupID set in order for the Synchronizer to work properly, otherwise keys will not propagate.
+If you are running a cluster of Gateways, you must have a _GroupID_ configured for synchronisation to work properly and propagate keys.
 
 `"slave_options":{ "group_id": "FOOBAR" }`
 
@@ -65,7 +65,7 @@ FOOBAR must be unique per-cluster.
 
 Please see [Gateway configuration options](https://tyk.io/docs/tyk-oss-gateway/configuration/#slave_optionsgroup_id) for reference
 
-**MDCB Control Plane configuration**
+**2. MDCB Control Plane configuration**
 
 Configure the MDCB Control Plane. The most simple configuration to enable this feature in the MDCB config file is:
 
