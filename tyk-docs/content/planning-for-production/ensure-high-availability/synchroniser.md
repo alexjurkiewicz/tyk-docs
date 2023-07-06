@@ -75,7 +75,7 @@ In order to configure how often the worker gateways read the signals from MDCB y
 
 All the authentication keys created in the management layer are replicated exactly the same to the worker DCs no matter which authentication method is being used: JWT, custom keys, Auth tokens, open ID, mTLS and so on.
 
-In an MDCB environment, the quotas and rates limits are stored locally per worker cluster, it means that they are not synchronised with others worker clusters or the management layer.
+In an MDCB environment, the quotas and rates limits are stored locally per worker cluster. This means that they are not synchronised with others worker clusters or the management layer.
 
 Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centre/mdcb-configuration-options/#sync_worker_config) for reference.
 
