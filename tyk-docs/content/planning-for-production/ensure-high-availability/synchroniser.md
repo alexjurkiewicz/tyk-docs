@@ -34,7 +34,7 @@ Considerations:
 
 **With Synchroniser**
 
-If Synchroniser is enabled, API keys, certificates and OAuth clients are synchronised and stored in the local Redis server in advance, and since dashboard v4.1.0 a signal is emitted when when one of those resources is created, modified or deleted, it allows the worker DCs to respond accordingly, the transmitted information is: type of resource, action (create, update, delete), if hashed (in the case of keys), and resource Id so the changes are applied.
+If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is enabled, API keys, certificates and OAuth clients are synchronised and stored in the local Redis server in advance, and since dashboard v4.1.0 a signal is emitted when when one of those resources is created, modified or deleted, it allows the worker DCs to respond accordingly, the transmitted information is: type of resource, action (create, update, delete), if hashed (in the case of keys), and resource Id so the changes are applied.
 
 Considerations: 
 - Local Redis sizing: if you have a lot of keys / resources to be synchronised, please review sizing of the local redis
