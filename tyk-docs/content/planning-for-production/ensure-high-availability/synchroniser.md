@@ -46,7 +46,7 @@ Considerations:
 
 {{< note success >}}**Note**
 
-Synchroniser feature is disabled by default. To enable it, please configure both the worker Gateways and MDCB control plane accordingly.
+The synchroniser feature is disabled by default. To enable it, please configure both the worker Gateways and MDCB control plane accordingly.
 {{< /note >}}
 
 **Worker Gateway configuration**
