@@ -73,7 +73,7 @@ Then, configure MDCB Control Plane. The most simple configuration to enable this
 
 In order to configure how often the worker gateways read the signals from MDCB you can use the configuration option in `key_space_sync_interval` which is the interval (in seconds) that they will take to check if there’re any changes, it defaults to 10 seconds.
 
-All the authentication keys created in the management layer are replicated exactly the same to the worker DCs no matter which authentication method is being used: JWT, custom keys, Auth tokens, open ID, mTLS and so on.
+All the authentication keys created in the management layer are replicated exactly the same to the data planes no matter which authentication method is being used: JWT, custom keys, Auth tokens, open ID, mTLS etc.
 
 In an MDCB environment, the quotas and rates limits are stored locally per worker cluster. This means that they are not synchronised with others worker clusters or the management layer.
 
