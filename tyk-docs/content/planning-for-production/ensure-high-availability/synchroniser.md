@@ -67,7 +67,7 @@ Please see [Gateway configuration options](https://tyk.io/docs/tyk-oss-gateway/c
 
 **MDCB Control Plane configuration**
 
-Then, configure MDCB Control Plane. The most simple configuration to enable this feature via MDCB config file looks like:
+Configure the MDCB Control Plane. The most simple configuration to enable this feature in the MDCB config file is:
 
 `"sync_worker_config":{ "enabled":true }`
 
