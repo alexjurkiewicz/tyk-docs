@@ -30,7 +30,7 @@ Every time that a key is updated or removed the management layer emits a signal 
 Considerations:
 This introduces a single point of failure. When the MDCB or controller Gateway fails then the worker Gateways are also affected.
 
-{{< img src="/img/mdcb/synchroniser-after.gif" alt="Without Synchroniser" width="1000" >}}
+{{< img src="/img/mdcb/synchroniser-before.gif" alt="Without Synchroniser" width="1000" >}}
 
 **With Synchroniser**
 
