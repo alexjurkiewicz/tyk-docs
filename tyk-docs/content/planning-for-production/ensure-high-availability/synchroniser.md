@@ -11,7 +11,7 @@ weight: 7
 
 ## Overview
 
-In order to process API requests the worker Gateways need resources such as API keys, certificates, and OAuth clients. To ensure high availability these resources need to be synchronised between worker Gateways.
+In order to process API requests the worker Gateways need resources such as API keys, certificates, and OAuth clients. To ensure high availability these resources need to be synchronised in worker Gateways.
 
 Prior to Tyk Gateway v4.1, the API keys, certificates and OAuth clients required by worker Gateways were synchronised from the controller Gateway on-demand. With Gateway v4.1 and MDCB v2.0.3 we introduced proactive synchronisation of these resources to the worker Gateways when they start up.
 
@@ -23,18 +23,18 @@ Changes to keys, certificates and OAuth clients are still synchronised to the wo
 
 **Without Synchroniser**
 
-If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is disabled, the resources were pulled by the worker Gateways on-demand and not in advance. It means that first it checks if the resource lives in the local redis and if it doesn’t exist then it tries to pull it from the management layer to store it locally.
+If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is disabled, the resources were pulled by the worker Gateways on-demand and not in advance. It means that first it checks if the resource lives in the local Redis and if it doesn’t exist then it tries to pull it from the control plane to store it locally.
 
-Every time that a key is updated or removed the management layer emits a signal to all the cluster gateways to update the key accordingly.
+Every time that a key is updated or removed the control plane emits a signal to all the cluster gateways to update the key accordingly.
 
 Considerations:
-This introduces a single point of failure. When the MDCB or controller Gateway fails then the worker Gateways are also affected.
+This introduces a single point of failure. When the MDCB or controller Gateway in the control plane fails then the worker Gateways are also affected.
 
 {{< img src="/img/mdcb/synchroniser-before.gif" alt="Without Synchroniser" width="1000" >}}
 
 **With Synchroniser**
 
-If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is enabled, API keys, certificates and OAuth clients are synchronised and stored in the local Redis server in advance, and since dashboard v4.1.0 a signal is emitted when when one of those resources is created, modified or deleted, it allows the worker DCs to respond accordingly, the transmitted information is: type of resource, action (create, update, delete), if hashed (in the case of keys), and resource Id so the changes are applied.
+If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_configenabled" >}}) is enabled, API keys, certificates and OAuth clients are synchronised and stored in the local redis server in advance. When one of those resources is created, modified or deleted, a signal will be emitted which allows the worker Gateways to respond accordingly. The transmitted information includes type of resource, action (create, update, delete), if hashed (in the case of keys), and resource ID so the changes are applied in the worker Gateways accordingly.
 
 Considerations: 
 - Size of local Redis storage: If there are a lot of keys / resources to be synchronised this will increase the size of local Redis storage.
@@ -55,15 +55,23 @@ First, configure the worker Gateway to enable synchroniser:
 
 `"slave_options":{ "synchroniser_enabled":true }`
 
-Please see [Gateway configuration options](https://tyk.io/docs/tyk-oss-gateway/configuration/#slave_optionssynchroniser_enabled) for reference
+Please see [Gateway configuration options]({{< ref "/tyk-oss-gateway/configuration#slave_optionssynchroniser_enabled" >}}) for reference.
+
+To configure how often the worker Gateways read signals from MDCB control plane:
+
+`"slave_options":{ "key_space_sync_interval": 10 }`
+
+It configures the interval (in seconds) that the worker Gateway will take to check if there are any changes. If this value is not set then it will default to 10 seconds.
+
+Please see [Gateway configuration options]({{< ref "/tyk-oss-gateway/configuration#slave_optionskey_space_sync_interval" >}}) for reference.
 
 If you are running a cluster of Gateways, you must have a _GroupID_ configured for synchronisation to work properly and propagate keys.
 
 `"slave_options":{ "group_id": "FOOBAR" }`
 
-FOOBAR must be unique per-cluster.
+FOOBAR must be unique per cluster.
 
-Please see [Gateway configuration options](https://tyk.io/docs/tyk-oss-gateway/configuration/#slave_optionsgroup_id) for reference
+Please see [Gateway configuration options]({{< ref "/tyk-oss-gateway/configuration##slave_optionsgroup_id" >}}) for reference
 
 **2. MDCB Control Plane configuration**
 
@@ -71,13 +79,7 @@ Configure the MDCB Control Plane. The most simple configuration to enable this f
 
 `"sync_worker_config":{ "enabled":true }`
 
-In order to configure how often the worker gateways read the signals from MDCB you can use the configuration option in `key_space_sync_interval` which is the interval (in seconds) that they will take to check if there’re any changes, it defaults to 10 seconds.
-
-All the authentication keys created in the management layer are replicated exactly the same to the data planes no matter which authentication method is being used: JWT, custom keys, Auth tokens, open ID, mTLS etc.
-
-In an MDCB environment, the quotas and rates limits are stored locally per worker cluster. This means that they are not synchronised with others worker clusters or the management layer.
-
-Please see [MDCB configuration options](https://tyk.io/docs/tyk-multi-data-centre/mdcb-configuration-options/#sync_worker_config) for reference.
+Please see [MDCB configuration options]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#sync_worker_config" >}}) for reference.
 
 If API keys were used and hash key is disabled, please also set these additional configurations for the following components:
 
@@ -89,7 +91,7 @@ If API keys were used and hash key is disabled, please also set these additional
 
 `"hash_keys": false` 
 
-- Management Gateway:
+- Controller Gateway:
 
 `"slave_options":{ "synchroniser_enabled": true }, "hash_keys": false` 
 
