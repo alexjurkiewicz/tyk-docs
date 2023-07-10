@@ -73,7 +73,7 @@ FOOBAR must be unique per cluster.
 
 Please see [Gateway configuration options]({{< ref "/tyk-oss-gateway/configuration##slave_optionsgroup_id" >}}) for reference
 
-**2. MDCB Control Plane configuration**
+**2. Control Plane configuration**
 
 Configure the MDCB Control Plane. The most simple configuration to enable this feature in the MDCB config file is:
 
