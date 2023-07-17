@@ -48,6 +48,31 @@ The API definition should have this:
 }
 ```
 
+Starting from versions 5.0.4, 5.1.1, and 5.2, we have introduced the `multi_value_headers` field to facilitate more flexible and efficient management of headers, particularly for scenarios involving a single header key associated with multiple values.  The `multi_value_headers` field, similar to its predecessor, the `headers` field, is a key-value store. However, it can accommodate an array or list of string values for each key, instead of a single string value. This feature empowers you to represent multiple values for a single header key. Here's an example of how you might use `multi_value_headers`, using the Set-Cookie header which often has multiple values:
+
+```
+multi_value_headers = {
+    "Set-Cookie": ["sessionToken=abc123; HttpOnly; Secure", "language=en-US; Secure"],
+}
+```
+
+In this example, Set-Cookie header has two associated values: `"sessionToken=abc123; HttpOnly; Secure"` and `"language=en-US; Secure"`.  To help you understand this further, let's see how `multi_value_headers` can be used in a Tyk response plugin written in Python:
+
+```
+from tyk.decorators import *
+from gateway import TykGateway as tyk
+
+@Hook
+def Del_ResponseHeader_Middleware(request, response, session, metadata, spec):
+    tyk.log(f"Headers content :\n {response.headers}\n----------", "info")
+    tyk.log(f"Multivalue Headers content :\n {response.multi_value_headers}\n----------", "info")
+    return response
+```
+
+In this script, the plugin logs both the traditional `headers` and the new `multi_value_headers`. This is a great way to monitor your transition to `multi_value_headers` and ensure that everything is functioning as expected.
+
+Please note, while the `headers` field will continue to be available and maintained for backward compatibility, we highly encourage the adoption of `multi_value_headers` for the added flexibility in handling multiple header values.
+
 ### Go response plugins
 
 Go response plugins are available from Tyk 3.2. See [Using a Go Response Plugin]({{< ref "plugins/supported-languages/golang#using-a-go-response-plugin" >}})
