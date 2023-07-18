@@ -13,7 +13,7 @@ weight: 7
 
 In order to process API requests the worker Gateways need resources such as API keys, certificates, and OAuth clients. To ensure high availability these resources need to be synchronised in worker Gateways.
 
-Prior to Tyk Gateway v4.1, the API keys, certificates and OAuth clients required by worker Gateways were synchronised from the controller Gateway on-demand. With Gateway v4.1 and MDCB v2.0.3 we introduced proactive synchronisation of these resources to the worker Gateways when they start up.
+Prior to Tyk Gateway v4.1, the API keys, certificates and OAuth clients required by worker Gateways were synchronised from the controller Gateway on-demand. With Gateway v4.1 and MDCB v2.0.3 we introduced a new configurable option that user may choose to have proactive synchronisation of these resources to the worker Gateways when they start up.
 
 This change improves resilience in case the MDCB link or controller Gateway is unavailable, because the worker Gateways can continue to operate independently using the resources stored locally. There is also a performance improvement, with the worker Gateways not having to retrieve resources from the controller Gateway when an API is first called.
 
@@ -38,7 +38,7 @@ If [Synchroniser]({{< ref "/tyk-multi-data-centre/mdcb-configuration-options#syn
 
 Considerations: 
 - Size of local Redis storage: If there are a lot of keys / resources to be synchronised this will increase the size of local Redis storage.
-- Data residency: Groups will be ignored when synchronising resources. All keys and oauth-clients etc. will be propagated to all Redis instances in the worker Gateways. This should be considered for those customers who have a single control plane but multiple clusters of worker Gateways connected. In this scenario all Redis instances in the Worker Gateways will receive all the keys. This has implications if you have data residency requirements.
+- Data residency: The synchronization of resources does not support the application of this feature to specific groups. Instead, all keys, oauth-clients, etc. will be propagated to all Redis instances in the worker Gateways, without any differentiation based on groups. This should be considered for those customers who have a single control plane but multiple clusters of worker Gateways connected. In this scenario all Redis instances in the Worker Gateways will receive all the keys. This has implications if you have data residency requirements.
 
 {{< img src="/img/mdcb/synchroniser-after.gif" alt="With Synchroniser" width="1000" >}}
 
@@ -69,7 +69,6 @@ If you are running a cluster of Gateways, you must have a _GroupID_ configured f
 
 `"slave_options":{ "group_id": "FOOBAR" }`
 
-FOOBAR must be unique per cluster.
 
 Please see [Gateway configuration options]({{< ref "/tyk-oss-gateway/configuration##slave_optionsgroup_id" >}}) for reference
 
