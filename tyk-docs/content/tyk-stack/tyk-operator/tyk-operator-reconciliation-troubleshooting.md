@@ -11,9 +11,7 @@ menu:
 
 From [Tyk Operator v0.15.0](https://github.com/TykTechnologies/tyk-operator/releases/tag/v0.15.0), we introduce a new status subresource in APIDefinition CRD, called _latestTransaction_ which holds information about reconciliation status.
 
-{{< note success >}}
-The [Status subresource](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource) in Kubernetes is a specialized endpoint that allows developers and operators to retrieve the real-time status of a specific Kubernetes resource. By querying this subresource, users can efficiently access essential information about a resource's current state, conditions, and other relevant details without fetching the entire resource, simplifying monitoring and aiding in prompt decision-making and issue resolution.
-{{< /note >}}
+> The [Status subresource](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource) in Kubernetes is a specialized endpoint that allows developers and operators to retrieve the real-time status of a specific Kubernetes resource. By querying this subresource, users can efficiently access essential information about a resource's current state, conditions, and other relevant details without fetching the entire resource, simplifying monitoring and aiding in prompt decision-making and issue resolution.
 
 The new status subresource _latestTransaction_ consists of a couple of fields that show the latest result of the reconciliation:
 - `.status.latestTransaction.status`: shows the status of the latest reconciliation, either Successful or Failed;
@@ -39,7 +37,7 @@ httpbin            /httpbin     http://httpbin.org   true      Failed
 ```
 As seen in the STATUS column, something went wrong, and the STATUS is Failed. 
 
-To get more information about the APIDefinition resource, we can use `kubectl describe`:
+To get more information about the APIDefinition resource, we can use `kubectl describe` or `kubectl get`:
 ```
 $ kubectl describe tykapis httpbin 
 Name:         httpbin 
