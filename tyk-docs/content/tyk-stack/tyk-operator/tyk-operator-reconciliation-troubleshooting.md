@@ -16,7 +16,7 @@ From [Tyk Operator v0.15.0](https://github.com/TykTechnologies/tyk-operator/rele
 The new status subresource _latestTransaction_ consists of a couple of fields that show the latest result of the reconciliation:
 - `.status.latestTransaction.status`: shows the status of the latest reconciliation, either Successful or Failed;
 - `.status.latestTransaction.time`: shows the time of the latest reconciliation;
-- `.status.latestTransaction.Error`: shows the message of an error if observed in the latest transaction.
+- `.status.latestTransaction.error`: shows the message of an error if observed in the latest transaction.
 
 ## Example: Find out why an APIDefinition resource cannot be deleted
 Consider the scenario when APIDefinition and SecurityPolicy are connected. Usually, APIDefinition cannot be deleted directly since it is protected by SecurityPolicy. The proper approach to remove an APIDefinition is to first remove the reference to the SecurityPolicy (either by deleting the SecurityPolicy CR or updating SecurityPolicy CR’s specification), and then remove the APIDefinition itself. However, if we directly delete this APIDefinition, Tyk Operator won’t delete the APIDefinition unless the link between SecurityPolicy and APIDefinition is removed. It is to protect the referential integrity between your resources.
