@@ -728,7 +728,7 @@ func MyPluginFunction(w http.ResponseWriter, r *http.Request) {
   fmt.Println("OAS doc title is", oas.Info.Title)
 }
 ```
-`ctx.GetOASDefinition` returns an OAS object, the Go data structure can be found [here](https://github.com/TykTechnologies/tyk/blob/master/apidef/oas/oas.go#L25)
+`ctx.GetOASDefinition` returns an `OAS` object containing the Tyk OAS API definition. The Go data structure can be found [here](https://github.com/TykTechnologies/tyk/blob/master/apidef/oas/oas.go#L25)
 
 ```
 {{< warning success >}}
