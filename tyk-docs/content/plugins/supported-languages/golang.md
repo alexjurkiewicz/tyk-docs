@@ -734,7 +734,7 @@ func MyPluginFunction(w http.ResponseWriter, r *http.Request) {
 {{< warning success >}}
 **Warning**
 
-`ctx.GetDefinition` returns `nil` for Tyk OAS APIs and `ctx.GetOASDefinition` returns `nil` for Tyk Classic APIs.
+`ctx.GetDefinition` returns `nil` if called from a Tyk OAS API and `ctx.GetOASDefinition` returns `nil` if called from a Tyk Classic API.
 {{< /warning >}}
 ```
 
