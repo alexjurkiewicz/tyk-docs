@@ -3127,8 +3127,12 @@ menu:
         menu:
       - title: "Troubleshooting"
         category: Directory
-        show: False
+        show: True
         menu:
+        - title: "Understanding Reconciliation Status"
+          path: /tyk-stack//tyk-operator/tyk-operator-reconciliation-troubleshooting
+          category: Page
+          show: True
       - title: "Release notes"
         category: Directory
         show: False
