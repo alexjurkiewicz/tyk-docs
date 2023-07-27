@@ -44,11 +44,14 @@ For example, to create a cache entry for each response to a `POST` request to yo
       {
         "method":"POST",
         "path":"addBooks",
-        "cache_key_regex": "my_match_pattern"
+        "cache_key_regex": "my_match_pattern",
+        "timeout": 60
       }
     ]
 }
 ```
+
+The `timeout` field specifies the time-to-live (TTL) value in seconds for setting cache time per endpoint. It takes precedence over the `cache_options.cache_timeout` setting at the API level if configured for a specific endpoint.
 
 {{< note success >}}
 **Note**  
