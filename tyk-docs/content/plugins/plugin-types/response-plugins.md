@@ -48,7 +48,7 @@ The API definition should have this:
 }
 ```
 
-Starting from versions 5.0.4, 5.1.1, and 5.2, we have introduced the `multi_value_headers` field to facilitate more flexible and efficient management of headers, particularly for scenarios involving a single header key associated with multiple values.  The `multi_value_headers` field, similar to its predecessor, the `headers` field, is a key-value store. However, it can accommodate an array or list of string values for each key, instead of a single string value. This feature empowers you to represent multiple values for a single header key. Here's an example of how you might use `multi_value_headers`, using the Set-Cookie header which often has multiple values:
+Starting from versions 5.0.4, 5.1.1, and 5.2, for our Go, Python and Ruby users we have introduced the `multi_value_headers` field to facilitate more flexible and efficient management of headers, particularly for scenarios involving a single header key associated with multiple values.  The `multi_value_headers` field, similar to its predecessor, the `headers` field, is a key-value store. However, it can accommodate an array or list of string values for each key, instead of a single string value. This feature empowers you to represent multiple values for a single header key. Here's an example of how you might use `multi_value_headers`, using the Set-Cookie header which often has multiple values:
 
 ```
 multi_value_headers = {
