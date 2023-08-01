@@ -21,7 +21,7 @@ The same applies to Security Policies and middleware too which is stored at /mnt
 
 This can be solved by instantiating a Persistent Volume as shared storage for the gateway instances. As each gateway is reload, they would get the API configurations from the same storage, solving the synchronisation issue between gateways. Also, the storage is persistent and can be designed to be not impacted by cluster failure, your API configurations can be maintained after pod restart.
 
-{{< img src="/img/diagrams/multiple-gateways" alt="multiple-gateways" >}}
+{{< img src="/img/diagrams/multiple-gateways.png" alt="multiple-gateways" >}}
 
  
 ## Steps
@@ -32,7 +32,7 @@ Check your Kubernetes platform what kind of persistent storage is supported. Som
 
 Example: A PersistentVolumeClaim requesting Azure Disk storage on AKS:
 
-`pvc-azure.yaml`:
+Create `pvc-azure.yaml`:
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -76,15 +76,21 @@ spec:
 The following settings would generate 3 replicas of gateway that get Load Balanced behind the Azure Application Gateway. The gateway share the same persistent volume to store the APIs, policies, and middleware config.
 
 ```bash
+NAMESPACE=tyk-oss
+APISecret=foo
+HOSTNAME_CLOUD=""
+
 kubectl apply -f pvc-azure.yaml -n $NAMESPACE
 
-helm upgrade tyk-oss tyk-helm/tyk-oss -n $NAMESPACE --create-namespace --devel \
+helm upgrade tyk-redis oci://registry-1.docker.io/bitnamicharts/redis -n $NAMESPACE --create-namespace --install --set image.tag=6.2.13
+
+helm upgrade tyk-oss tyk-helm/tyk-oss -n $NAMESPACE --create-namespace \
   --install \
   --set global.secrets.APISecret="$APISecret" \
   --set global.redis.addrs="{tyk-redis-master.$NAMESPACE.svc.cluster.local:6379}" \
-  --set global.redis.pass="$(kubectl get secret --namespace $NAMESPACE tyk-redis -o jsonpath='{.data.redis-password}' | base64 -d)" \
+  --set global.redis.passSecret.name=tyk-redis \
+  --set global.redis.passSecret.keyName=redis-password \
   --set tyk-gateway.gateway.hostName=$HOSTNAME_CLOUD \
-  --set tyk-gateway.gateway.image.tag=$TykVersion \
   --set global.tls.gateway=false \
   --set tyk-gateway.gateway.ingress.enabled=true \
   --set-json 'tyk-gateway.gateway.ingress.annotations={"kubernetes.io/ingress.class": "azure/application-gateway"}' \
@@ -110,6 +116,7 @@ helm upgrade tyk-oss tyk-helm/tyk-oss -n $NAMESPACE --create-namespace --devel \
 ### 3. Use Tyk Operator to manage your APIs and Policies
 
 When the files in /apps or /policies folder is updated, you have to reload your gateways to pickup the change. Operator can help you to manage reload of the cluster groups automatically after each API or policies resource update.
+
 See [Install Tyk Operator]({{<ref "/tyk-stack/tyk-operator/installing-tyk-operator">}}) to manage your APIs on how to install and use Tyk Operator.
 
 ### 4. Verification
