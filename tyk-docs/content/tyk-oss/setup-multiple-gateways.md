@@ -21,6 +21,8 @@ The same applies to Security Policies and middleware too which is stored at /mnt
 
 This can be solved by instantiating a Persistent Volume as shared storage for the gateway instances. As each gateway is reload, they would get the API configurations from the same storage, solving the synchronisation issue between gateways. Also, the storage is persistent and can be designed to be not impacted by cluster failure, your API configurations can be maintained after pod restart.
 
+{{< img src="/img/diagrams/multiple-gateways" alt="multiple-gateways" >}}
+
  
 ## Steps
 
