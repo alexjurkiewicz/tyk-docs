@@ -251,7 +251,7 @@ You can configure persistent volume for APIs, Policies, and middlewares using `e
       mountPath: /mnt/tyk-gateway/middleware
 ```
 
-See [Running multiple instances of Tyk Gateway]({{<ref "/tyk-charts/setup-multiple-gateways">}}) for a step-by-step guide on scaling Tyk Gateway on Kubernetes.
+See [Running multiple instances of Tyk Gateway]({{<ref "/tyk-oss/setup-multiple-gateways">}}) for a step-by-step guide on scaling Tyk Gateway on Kubernetes.
 
 ### Pump Configurations
 
@@ -273,7 +273,7 @@ Add `prometheus` to `tyk-pump.pump.backend`, and add connection details for prom
 We also support monitoring using Prometheus Operator. All you have to do is set `tyk-pump.pump.prometheusPump.prometheusOperator.enabled` to true.
 This will create a *PodMonitor* resource for your Pump instance.
 
-See [Configure Tyk Pump to expose analytics data to Prometheus]({{<ref "/tyk-charts/setup-prometheus-pump">}}) for a step-by-step guide on setting up Prometheus Pump.
+See [Configure Tyk Pump to expose analytics data to Prometheus]() for a step-by-step guide on setting up Prometheus Pump.
 
 #### Mongo Pump
 If you are using the MongoDB pumps in the tyk-oss installation you will require MongoDB installed for that as well.
