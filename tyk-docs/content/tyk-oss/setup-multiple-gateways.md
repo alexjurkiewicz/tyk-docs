@@ -24,7 +24,7 @@ This can be solved by instantiating a Persistent Volume as shared storage for th
  
 ## Steps
 
-1. Create PersistentVolume and PersistentVolumeClaim
+### 1. Create PersistentVolume and PersistentVolumeClaim
 
 Check your Kubernetes platform what kind of persistent storage is supported. Some platform supports Dynamic Storage Provisioning so you (or the Cluster Admin) do not need to create a PersistentVolume in advance. When an application requests storage through PersistentVolumeClaim, the corresponding persistent volume type would be provisioned. You can often specify type of storage through storageClassName.
 
@@ -69,7 +69,7 @@ spec:
       storage: 1Gi
 ```
 
-2. Install Multiple Instances of Tyk Gateways
+### 2. Install Multiple Instances of Tyk Gateways
 
 The following settings would generate 3 replicas of gateway that get Load Balanced behind the Azure Application Gateway. The gateway share the same persistent volume to store the APIs, policies, and middleware config.
 
@@ -105,12 +105,12 @@ helm upgrade tyk-oss tyk-helm/tyk-oss -n $NAMESPACE --create-namespace --devel \
   --set "tyk-gateway.gateway.extraVolumeMounts[2].mountPath=/mnt/tyk-gateway/middleware"
 ```
 
-3. Use Tyk Operator to manage your APIs and Policies
+### 3. Use Tyk Operator to manage your APIs and Policies
 
 When the files in /apps or /policies folder is updated, you have to reload your gateways to pickup the change. Operator can help you to manage reload of the cluster groups automatically after each API or policies resource update.
-See Install Tyk Operator to manage your APIs on how to install and use Tyk Operator.
+See [Install Tyk Operator]({{<ref "/tyk-stack/tyk-operator/installing-tyk-operator">}}) to manage your APIs on how to install and use Tyk Operator.
 
-4. Verification
+### 4. Verification
 
 You can see multiple gateway pods are created:
 
@@ -120,8 +120,11 @@ NAME                                           READY   STATUS    RESTARTS   AGE
 gateway-tyk-oss-tyk-gateway-856bc756b7-k892n   1/1     Running   0          32m
 gateway-tyk-oss-tyk-gateway-856bc756b7-w45sr   1/1     Running   0          32m
 gateway-tyk-oss-tyk-gateway-856bc756b7-zvkw7   1/1     Running   0          32m
+```
+
 Check the PersistentVolumeClaim, you can see that it is used by all the 3 pods:
 
+```bash
 % kubectl describe pvc tyk-app-claim -n tyk-oss
 Name:          tyk-app-claim
 Namespace:     tyk-oss
