@@ -172,16 +172,18 @@ The Tyk Helm Chart can connect to `simple-redis` in the same namespace by defaul
 
 Configure below inside `tyk-gateway` section.
 
-#### Tyk Gateway Version
+#### Update Tyk Gateway Version
 Set version of gateway at `tyk-gateway.gateway.image.tag`. You can find the list of version tags available from [Docker hub](https://hub.docker.com/u/tykio). Please check [Tyk Release notes]({{<ref "/release-notes">}}) carefully while upgrading or downgrading.
 
 #### Enabling TLS
 
 *Enable TLS*
+
 We have provided an easy way to enable TLS via the `global.tls.gateway` flag. Setting this value to true will
 automatically enable TLS using the certificate provided under tyk-gateway/certs/.
 
 *Configure TLS secret*
+
 If you want to use your own key/cert pair, please follow the following steps:
 1. Create a TLS secret using your cert and key pair.
 2. Set `global.tls.gateway` to true.
@@ -189,7 +191,8 @@ If you want to use your own key/cert pair, please follow the following steps:
 4. Set `tyk-gateway.gateway.tls.secretName` to the name of the newly created secret.
 
 *Add Custom Certificates*
-To add your custom Certificate Authority(CA) to your docker containers. You can mount your CA certificate directly into /etc/ssl/certs folder.
+
+To add your custom Certificate Authority(CA) to your containers, you can mount your CA certificate directly into /etc/ssl/certs folder.
 
 ```yaml
    extraVolumes: 
@@ -206,7 +209,7 @@ To add your custom Certificate Authority(CA) to your docker containers. You can 
 
 *Service port*
 
-Default service port of gateway is 8080. You can this at `global.servicePorts.gateway`.
+Default service port of gateway is 8080. You can change this at `global.servicePorts.gateway`.
 
 *Ingress*
 
@@ -214,7 +217,39 @@ An Ingress resource is created if `tyk-gateway.gateway.ingress.enabled` is set t
 
 *Control Port*
 
-Enabling `tyk-gateway.gateway.control.enabled` will allow you to run the [Gateway API]({{<ref "/tyk-gateway-api">}}) on a separate port and protect it behind a firewall if needed.
+Set `tyk-gateway.gateway.control.enabled` to true will allow you to run the [Gateway API]({{<ref "/tyk-gateway-api">}}) on a separate port and protect it behind a firewall if needed.
+
+#### Mounting APIs, Policies, and Middlewares
+
+By default, Gateway stores API configurations at `/mnt/tyk-gateway/apps` inside the Gateway container. There are a a few challenges:
+* Multiple gateways do not share app configs
+* The configuration is not persistent. It got lost whenever pod restart
+
+The same applies to security policies and middleware too which is stored at `/mnt/tyk-gateway/policies` and `/mnt/tyk-gateway/middleware` respectively.
+This can be solved by instantiating a Persistent Volume as shared storage for the gateway instances. As each gateway is reload, they would get the API configurations from the same storage, solving the synchronisation issue between gateways. Also, the storage is persistent and can be designed to be not impacted by cluster failure, your API configurations can be maintained after pod restart.
+
+You can configure persistent volume for APIs, Policies, and middlewares using `extraVolumes` and `extraVolumeMounts`:
+
+```yaml
+    extraVolumes:
+    - name: tyk-app-storage
+      persistentVolumeClaim:
+        claimName: tyk-app-claim
+    - name: tyk-policies-storage
+      persistentVolumeClaim:
+        claimName: tyk-policies-claim
+    - name: tyk-middleware-storage
+      persistentVolumeClaim:
+        claimName: tyk-middleware-claim
+
+    extraVolumeMounts: 
+    - name: tyk-app-storage
+      mountPath: /mnt/tyk-gateway/apps
+    - name: tyk-policies-storage
+      mountPath: /mnt/tyk-gateway/policies
+    - name: tyk-middleware-storage
+      mountPath: /mnt/tyk-gateway/middleware
+```
 
 ### Pump Configurations
 
@@ -224,11 +259,11 @@ To enable Pump, set `global.components.pump` to true, and configure below inside
 
 | Pump                      | Configuration                                                                                              |
 |---------------------------|------------------------------------------------------------------------------------------------------------| 
-| Prometheus Pump (Default) | Add `prometheus` to `pump.backend`, and add connection details for prometheus under `pump.prometheusPump`. |
-| Mongo Pump                | Add `mongo` to `pump.backend`, and add connection details for mongo under `.global.mongo`.                 |
-| SQL Pump                  | Add `postgres` to `pump.backend`, and add connection details for postgres under `.global.postgres`.        |
-| Uptime Pump               | Set `pump.uptimePumpBackend` to `'mongo'` or `'postgres'` or `''`                                          |
-| Other Pumps               | Add the required environment variables in `pump.extraEnvs`                                                 |
+| Prometheus Pump (Default) | Add `prometheus` to `tyk-pump.pump.backend`, and add connection details for prometheus under `tyk-pump.pump.prometheusPump`. |
+| Mongo Pump                | Add `mongo` to `tyk-pump.pump.backend`, and add connection details for mongo under `global.mongo`.                 |
+| SQL Pump                  | Add `postgres` to `tyk-pump.pump.backend`, and add connection details for postgres under `global.postgres`.        |
+| Uptime Pump               | Set `tyk-pump.pump.uptimePumpBackend` to `'mongo'` or `'postgres'` or `''`                                          |
+| Other Pumps               | Add the required environment variables in `tyk-pump.pump.extraEnvs`                                                 |
 
 #### Prometheus Pump
 Add `prometheus` to `pump.backend`, and add connection details for prometheus under `pump.prometheusPump`. 
