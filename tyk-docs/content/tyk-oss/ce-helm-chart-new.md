@@ -215,6 +215,31 @@ Default service port of gateway is 8080. You can change this at `global.serviceP
 
 An Ingress resource is created if `tyk-gateway.gateway.ingress.enabled` is set to true.
 
+```yaml
+    ingress:
+      # if enabled, creates an ingress resource for the gateway
+      enabled: true
+
+      # specify ingress controller class name
+      className: "nginx"
+
+      # annotations for ingress
+      annotations: {}
+
+      # ingress rules
+      hosts:
+        - host: tyk-gw.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+
+      # tls configuration for ingress
+      #  - secretName: chart-example-tls
+      #    hosts:
+      #      - chart-example.local
+      tls: []
+```
+
 *Control Port*
 
 Set `tyk-gateway.gateway.control.enabled` to true will allow you to run the [Gateway API]({{<ref "/tyk-gateway-api">}}) on a separate port and protect it behind a firewall if needed.
@@ -253,11 +278,21 @@ You can configure persistent volume for APIs, Policies, and middlewares using `e
 
 See [Running multiple instances of Tyk Gateway]({{<ref "/tyk-oss/setup-multiple-gateways">}}) for a step-by-step guide on scaling Tyk Gateway on Kubernetes.
 
+#### Setting Environment Variable
+
+You can add environment variables for Tyk Gateway under `extraEnvs`. This can be used to override any default settings in the chart, e.g.
+
+```yaml
+    extraEnvs:
+      - name: TYK_GW_HASHKEYS
+        value: "false"
+```
+
+Here is a reference of all [Tyk Gateway Configuration Options]({{<ref "/tyk-oss-gateway/configuration/">}}).
+
 ### Pump Configurations
 
 To enable Pump, set `global.components.pump` to true, and configure below inside `tyk-pump` section.
-
-<!-- BEGIN import from pump doc -->
 
 | Pump                      | Configuration                                                                                              |
 |---------------------------|------------------------------------------------------------------------------------------------------------| 
@@ -273,7 +308,7 @@ Add `prometheus` to `tyk-pump.pump.backend`, and add connection details for prom
 We also support monitoring using Prometheus Operator. All you have to do is set `tyk-pump.pump.prometheusPump.prometheusOperator.enabled` to true.
 This will create a *PodMonitor* resource for your Pump instance.
 
-See [Configure Tyk Pump to expose analytics data to Prometheus]() for a step-by-step guide on setting up Prometheus Pump.
+See [Configure Tyk Pump to expose analytics data to Prometheus]({{<ref "/tyk-oss/setup-prometheus-pump">}}) for a step-by-step guide on setting up Prometheus Pump on Kubernetes.
 
 #### Mongo Pump
 If you are using the MongoDB pumps in the tyk-oss installation you will require MongoDB installed for that as well.
@@ -340,4 +375,3 @@ Uptime Pump can be configured by setting `tyk-pump.pump.uptimePumpBackend` in va
 
 #### Other Pumps
 To setup other backends for pump, refer to this [document](https://github.com/TykTechnologies/tyk-pump/blob/master/README.md#pumps--back-ends-supported) and add the required environment variables in `tyk-pump.pump.extraEnvs`
-
