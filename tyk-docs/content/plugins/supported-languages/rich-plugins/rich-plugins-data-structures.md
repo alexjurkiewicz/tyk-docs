@@ -19,7 +19,7 @@ This page describes the data structures used by Tyk rich plugins, and is used in
 
 
 We keep our stable Protocol Buffer definitions in the following GitHub repository:
-[https://github.com/TykTechnologies/tyk-protobuf/proto](https://github.com/TykTechnologies/tyk-protobuf/tree/master/proto).
+[https://github.com/TykTechnologies/tyk/tree/master/coprocess/proto](https://github.com/TykTechnologies/tyk/tree/master/coprocess/proto).
 This is intended for users to generate their own bindings using the appropriate gRPC tools for the language used.
 
 ### MiniRequestObject (coprocess_mini_request_object.proto)
