@@ -17,7 +17,7 @@ We'll show you how to setup Tyk Pump for Prometheus Service Discovery.
 
 ## Example: Integrate with Prometheus using Prometheus Operator
 
-### 1. Setup Prometheus
+### 1. Setup Prometheus
 
 *Using the prometheus-community/kube-prometheus-stack chart*
 
@@ -29,7 +29,7 @@ helm install prometheus-stack prometheus-community/kube-prometheus-stack -n moni
 
 This is a useful stack where you can get Prometheus, the Prometheus Operator, and Grafana all deployed and configured in one go.
 
-### 2. Install Tyk Pump with PodMonitor
+### 2. Install Tyk Pump with PodMonitor
 
 If you have Prometheus Operator enabled on the cluster, it would look for “PodMonitor” or “ServiceMonitor” resource and scrap from specified port. The only thing you would need to modify here is the helm release name for Prometheus Operator.
 
@@ -62,7 +62,7 @@ helm upgrade tyk-oss tyk-helm/tyk-oss -n $NAMESPACE --create-namespace \
 For Custom Metrics, commas are escaped to be used in helm --set command. You can remove the backslashes in front of the commas if you are to set it in values.yaml. We have included an example in the default values.yaml comments section.
 {{< /note >}}
 
-### 3. Verification
+### 3. Verification
 
 When successfully configured, you could see the following messages in pump log:
 
