@@ -105,7 +105,7 @@ And an arbitrary secret `tyk` with the key `gw` and value `123` is created in Va
 3. To retrieve the secret from within Tyk Gateway, we reference the secret using: 
    `TYK_GW_SECRET=vault://secret/tyk.gw`
 
-Retrieving from Vault:
+To retrieve the secret from within Vault:
 ```curl
 curl \
   --header "X-Vault-Token: <your_vault_token>" \
