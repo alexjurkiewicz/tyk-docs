@@ -94,7 +94,7 @@ For use inside the Tyk configuration file, target URL and listen path, pls use t
 | Vault                           | `vault://engine/path/to/secret.actual_secret_name` |
 | Configuration file              | `secrets://value`                                  |
 
-#### Note about Valut
+#### Note about Vault
 In traditional systems, secrets are typically stored individually, each with its own unique key. However, in Vault, it allows for a more flexible approach where multiple secrets can be grouped together and stored under a single key. This grouping allows for better organization and management of related secrets, making it easier to retrieve and manage them collectively. This means that for Vault you use the dot notation to retrieve the exact one we need such as below :
 Example for a secret `gw` under `tyk`:
 
