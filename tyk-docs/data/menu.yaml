@@ -2978,6 +2978,10 @@ menu:
           path: /tyk-stack/tyk-pump/other-data-stores/monitor-apis-prometheus
           category: Page
           show: True
+        - title: "Setup Prometheus Pump"
+          path: /tyk-oss/setup-multiple-gateways
+          category: Page
+          show: True
       - title: "Troubleshooting"
         category: Directory
         show: True
