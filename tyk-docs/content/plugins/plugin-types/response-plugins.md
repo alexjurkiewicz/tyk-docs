@@ -20,7 +20,7 @@ Since Tyk 3.0 we have incorporated response hooks, this type of hook allows you 
 
 This snippet illustrates the hook function signature:
 
-```
+```python
 @Hook
 def ResponseHook(request, response, session, metadata, spec):
     tyk.log("ResponseHook is called", "info")
@@ -58,14 +58,21 @@ multi_value_headers = {
 
 In this example, Set-Cookie header has two associated values: `"sessionToken=abc123; HttpOnly; Secure"` and `"language=en-US; Secure"`.  To help you understand this further, let's see how `multi_value_headers` can be used in a Tyk response plugin written in Python:
 
-```
+```python
 from tyk.decorators import *
 from gateway import TykGateway as tyk
 
 @Hook
 def Del_ResponseHeader_Middleware(request, response, session, metadata, spec):
+    # inject a new header with 2 values
+    new_header = response.multivalue_headers.add()
+    new_header.key = "Set-Cookie"
+    new_header.values.extend("sessionToken=abc123; HttpOnly; Secure")
+    new_header.values.extend("language=en-US; Secure")
+    
     tyk.log(f"Headers content :\n {response.headers}\n----------", "info")
-    tyk.log(f"Multivalue Headers content :\n {response.multi_value_headers}\n----------", "info")
+    tyk.log(f"Multivalue Headers updated :\n {response.multi_value_headers}\n----------", "info")
+    
     return response
 ```
 
