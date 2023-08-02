@@ -176,11 +176,16 @@ TYK_SECRET_MYUPSTREAM="http://httpbin.org/"
 ```
 
 Then, in the Tyk Classic API definition, you set these names in the listen path and target URL fields, with a `env://` prefix:
-```
+
+```yaml
+...
 "proxy": {
     "preserve_host_header": false,
     "listen_path": env://mylistenpath,
     "target_url": env://myupstream,
+    ...
+}
+...
 ```
 This way Tyk Gateway will know to lookup environment variables named `TYK_SECRET_MYLISTENPATH` and `TYK_SECRET_MYUPSTREAM`
 
