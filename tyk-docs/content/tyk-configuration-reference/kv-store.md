@@ -100,7 +100,7 @@ Example for a secret `gw` under `tyk`:
 
 1. Enable the `kv` secrets engine under the path `secret` within Vault using:  
    `vault secrets enable -version=2 -path=secret kv`  
-And an arbitrary secret `tyk` with the key `gw` and value `123` is created in Vault:  
+2. Create an arbitrary secret `tyk` with the key `gw` and value `123` in Vault:  
    `vault kv put secret/tyk gw=123`  
 3. To retrieve the secret from within Tyk Gateway, we reference the secret using: 
    `TYK_GW_SECRET=vault://secret/tyk.gw`
