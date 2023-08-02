@@ -102,7 +102,7 @@ Example for a secret `gw` under `tyk`:
    `vault secrets enable -version=2 -path=secret kv`  
 And an arbitrary secret `tyk` with the key `gw` and value `123` is created in Vault:  
    `vault kv put secret/tyk gw=123`  
-Then to retrieve the secret from within Tyk Gateway, we reference the secret using:  
+3. To retrieve the secret from within Tyk Gateway, we reference the secret using: 
    `TYK_GW_SECRET=vault://secret/tyk.gw`
 
 Retrieving from Vault:
