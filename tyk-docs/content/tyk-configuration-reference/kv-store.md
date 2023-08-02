@@ -113,7 +113,7 @@ curl \
   https://vault-server.example.com/v1/secret/tyk?lease=true
 ```
 
-```json
+```yaml
 {
    "request_id": "0c7e44e1-b71d-2102-5349-b5c60c13fb02",
    "lease_id": "",
