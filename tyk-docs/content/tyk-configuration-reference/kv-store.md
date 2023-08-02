@@ -98,7 +98,7 @@ For use inside the Tyk configuration file, target URL and listen path, pls use t
 In traditional systems, secrets are typically stored individually, each with its own unique key. However, in Vault, it allows for a more flexible approach where multiple secrets can be grouped together and stored under a single key. This grouping allows for better organization and management of related secrets, making it easier to retrieve and manage them collectively. This means that for Vault you use the dot notation to retrieve the exact one we need such as below :
 Example for a secret `gw` under `tyk`:
 
-If one enables the `kv` secrets engine under the path `secret` within Vault using:  
+1. Enable the `kv` secrets engine under the path `secret` within Vault using:  
    `vault secrets enable -version=2 -path=secret kv`  
 And an arbitrary secret `tyk` with the key `gw` and value `123` is created in Vault:  
    `vault kv put secret/tyk gw=123`  
