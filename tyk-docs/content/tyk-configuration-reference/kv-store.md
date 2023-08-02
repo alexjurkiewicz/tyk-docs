@@ -1,5 +1,5 @@
 ---
-title: Key Value secrets storage for configuration in Tyk
+title: Key Value Secrets Storage for Configuration in Tyk
 menu:
   main:
     parent: Tyk Gateway
@@ -8,12 +8,12 @@ aliases:
   - /tyk-stack/tyk-gateway/kv-store/
 ---
 
-Tyk Gateway as of v3.0 supports storing secrets in KV systems such as [Vault](https://vaultproject.io), [Consul](https://consul.io). You can reference these values from the KV store in your `tyk.conf` or API definition.
+Tyk Gateway as of v3.0 supports storing secrets in KV systems such as [Vault](https://vaultproject.io), and [Consul](https://consul.io). You can reference these values from the KV store in your `tyk.conf` or API definition.
 This has many benefits such as:
 - Allows for ease of updating secrets across multiple machines rather than
   having to manually update each and everyone of them.
 - Allows for proper separation of concerns. Developers don't have access to
-  these secrets. Devops and/or only authorised people do and just pass along the
+  these secrets. DevOps and/or only authorised people do and just pass along the
   name used to store the secret in the KV store.
 - Using the local "secrets" section inside `tyk.conf` allows you to have per Gateway variables, like machine ID, and inject it as part of headers or body.
 
@@ -65,7 +65,7 @@ You can use all three options as shown in the example of `tyk.conf` below:
 ```
 
 Alternatively, you can configure it using the environment variables. For example, these are the environment variables you need to define for Vault:
-```shell
+```env
 TYK_GW_KV_VAULT_ADDRESS=http://VAULT_CONNECTION_STRING:VAULT_CONNECTION_PORT
 TYK_GW_KV_VAULT_MAXRETRIES=3
 TYK_GW_KV_VAULT_TIMEOUT=30s
@@ -139,7 +139,7 @@ There is no need to append `/data` to the secret path.
 ### 2. Tyk Environment Variable
 For use inside environment variables, the following secrets are supported:
 
-```shell
+```env
 TYK_GW_SECRET
 TYK_GW_NODESECRET
 TYK_GW_STORAGE_PASSWORD
